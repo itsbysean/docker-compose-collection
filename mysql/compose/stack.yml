@@ -1,0 +1,19 @@
+services:
+  adminer:
+    image: adminer
+    ports: ['8081:8080']
+    restart: always
+  db:
+    environment: 
+      MYSQL_DATABASE: ${SERVICE_DATABASE}
+      MYSQL_PASSWORD: ${SERVICE_DATABASE_PASSWORD}
+      MYSQL_ROOT_PASSWORD: iamroot
+      MYSQL_USER: ${SERVICE_DATABASE_USERNAME}
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    image: mysql:5.7
+    ports: 
+      - ${SERVICE_DATABASE_PORT}:3306
+    volumes: 
+      - ../data:/var/lib/mysql
+    restart: always
+version: '3.1'

@@ -1,14 +1,21 @@
-version: '2'
+version: '3'
+
 services:
   activemq:
-    tty: true
-    image: webcenter/activemq:latest
+    image: rmohr/activemq:latest
     volumes:
-      - ../data:/data
+      - ../data:/opt/activemq/data
     ports:
+      - 1883:1883
+      - 5672:5672
       - 8161:8161
-      - 61616:61616
       - 61613:61613
-volumes:
-  activemq-data:
-    driver: local
+      - 61614:61614
+      - 61616:61616
+
+# 61616 JMS
+# 8161  UI
+# 5672  AMQP  (since `rmohr/activemq:5.12.1`)
+# 61613 STOMP (since `rmohr/activemq:5.12.1`)
+# 1883  MQTT  (since `rmohr/activemq:5.12.1`)
+# 61614 WS    (since `rmohr/activemq:5.12.1`)

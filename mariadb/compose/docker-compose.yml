@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:10.3
+    environment:
+      MYSQL_ROOT_PASSWORD: TEST
+      MYSQL_DATABASE: TEST
+      MYSQL_USER: TEST
+      MYSQL_PASSWORD: TEST
+    ports:
+      - "3306:3306"
+    restart: on-failure
+    volumes:
+      - ../data:/var/lib/mysql

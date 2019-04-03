@@ -1,7 +1,8 @@
  version: "3.6"
- 
+
  services:
   gitlab:
+    container_name: gitlab
     image: 'gitlab/gitlab-ce:latest'
     restart: always
     hostname: 'localhost'
@@ -10,8 +11,8 @@
         external_url 'http://localhost:9090'
         gitlab_rails['gitlab_shell_ssh_port'] = 2224
     ports:
-      - '9090:9090'
-      - '2224:22'
+      - "9090:9090"
+      - "2224:22"
     volumes:
       - '../data/config:/etc/gitlab'
       - '../data/logs:/var/log/gitlab'

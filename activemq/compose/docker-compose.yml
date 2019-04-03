@@ -1,8 +1,10 @@
 version: '3'
+version: '3.6'
 
 services:
   activemq:
-    image: rmohr/activemq:latest
+    container_name: activemq
+    image: rmohr/activemq:5.15.6
     volumes:
       - ../data:/opt/activemq/data
     ports:

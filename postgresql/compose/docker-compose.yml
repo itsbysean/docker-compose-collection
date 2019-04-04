@@ -1,9 +1,8 @@
+version: '3.6'
+
 services:
-  adminer:
-    image: adminer
-    ports: ['8081:8080']
-    restart: always
-  db:
+  postgres_10:
+    container_name: postgres_10
     environment: 
       POSTGRES_DB: TEST
       POSTGRES_PASSWORD: TEST
@@ -14,4 +13,3 @@ services:
     volumes: 
       - ../data:/var/lib/postgresql/data
     restart: always
-version: '3.1'

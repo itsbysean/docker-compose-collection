@@ -2,18 +2,24 @@ version: '3'
 services:
 
     mongo:
+        container_name: mongo
         image: mongo
         ports:
             - 27017:27017
         volumes:
             - ../data:/data/db
+        networks:
+            - groupadd
 
     parse:
+        container_name: parse
         image: parseplatform/parse-server
         ports:
             - 1337:1337
-        links:
+        depends_on: 
             - mongo
+        networks:
+            - groupadd
         environment:
             - PARSE_SERVER_APPLICATION_ID=yourappid
             - PARSE_SERVER_MASTER_KEY=yourmasterkey
@@ -22,7 +28,10 @@ services:
             - PARSE_SERVER_LIVE_QUERY={"classNames":["people","monitor"]}
 
     dashboard:
+        container_name: dashboard
         image: parseplatform/parse-dashboard
+        depends_on:
+            - parse 
         ports:
             - 4040:4040
         environment:
@@ -33,3 +42,9 @@ services:
             - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
             - PARSE_DASHBOARD_USER_ID=user
             - PARSE_DASHBOARD_USER_PASSWORD=pass
+        networks:
+            - groupadd
+            
+networks:
+    groupadd:
+        driver: bridge
